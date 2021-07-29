@@ -2,13 +2,13 @@ package logic
 
 import (
 	"context"
+	"gitee.com/fireflylove/user-svc/model"
+	"gitee.com/fireflylove/user-svc/tool"
 	"golang.org/x/crypto/bcrypt"
 	"time"
-	"user-svc/model"
-	"user-svc/tool"
 
-	"user-svc/internal/svc"
-	"user-svc/user"
+	"gitee.com/fireflylove/user-svc/internal/svc"
+	"gitee.com/fireflylove/user-svc/user"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )

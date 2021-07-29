@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"user-svc/internal/config"
-	"user-svc/internal/server"
-	"user-svc/internal/svc"
-	"user-svc/user"
+	"gitee.com/fireflylove/user-svc/internal/config"
+	"gitee.com/fireflylove/user-svc/internal/server"
+	"gitee.com/fireflylove/user-svc/internal/svc"
+	"gitee.com/fireflylove/user-svc/user"
 
 	"github.com/tal-tech/go-zero/core/conf"
 	"github.com/tal-tech/go-zero/zrpc"

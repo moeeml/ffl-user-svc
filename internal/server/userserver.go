@@ -6,9 +6,9 @@ package server
 import (
 	"context"
 
-	"user-svc/internal/logic"
-	"user-svc/internal/svc"
-	"user-svc/user"
+	"gitee.com/fireflylove/user-svc/internal/logic"
+	"gitee.com/fireflylove/user-svc/internal/svc"
+	"gitee.com/fireflylove/user-svc/user"
 )
 
 type UserServer struct {

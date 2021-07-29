@@ -2,10 +2,10 @@ package logic
 
 import (
 	"context"
-	"user-svc/tool"
+	"gitee.com/fireflylove/user-svc/tool"
 
-	"user-svc/internal/svc"
-	"user-svc/user"
+	"gitee.com/fireflylove/user-svc/internal/svc"
+	"gitee.com/fireflylove/user-svc/user"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )

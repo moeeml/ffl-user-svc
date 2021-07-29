@@ -8,7 +8,7 @@ package userclient
 import (
 	"context"
 
-	"user-svc/user"
+	"gitee.com/fireflylove/user-svc/user"
 
 	"github.com/tal-tech/go-zero/zrpc"
 )

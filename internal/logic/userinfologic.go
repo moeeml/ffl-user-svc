@@ -45,12 +45,13 @@ func (l *UserInfoLogic) UserInfo(in *user.UserInfoReq) (*user.UserInfoRsp, error
 
 	return &user.UserInfoRsp{
 		Code: 0,
-		User: &user.UserInfo{
-			Id:      r.Id,
-			Account: r.Account,
-			Name:    r.Name,
-			Avatar:  r.Avatar,
-			Status:  r.Status,
+		User: &user.UserDetail{
+			Id:       r.Id,
+			Account:  r.Account,
+			Name:     r.Name,
+			Avatar:   r.Avatar,
+			Status:   r.Status,
+			Password: r.Password,
 		},
 	}, nil
 }

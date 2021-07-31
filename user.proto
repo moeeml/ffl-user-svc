@@ -32,6 +32,7 @@ message UserInfo{
 
 message UserInfoReq{
   int64 id = 1;
+  string account = 2;
 }
 
 message UserInfoRsp{

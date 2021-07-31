@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"gitee.com/fireflylove/user-svc/model"
 	"gitee.com/fireflylove/user-svc/tool"
 
 	"gitee.com/fireflylove/user-svc/internal/svc"
@@ -26,7 +27,14 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 
 func (l *UserInfoLogic) UserInfo(in *user.UserInfoReq) (*user.UserInfoRsp, error) {
 
-	r, err := l.svcCtx.UserModel.FindOne(in.Id)
+	var err error
+	var r *model.User
+
+	if len(in.Account) > 0 {
+		r, err = l.svcCtx.UserModel.FindOneByAccount(in.Account)
+	} else {
+		r, err = l.svcCtx.UserModel.FindOne(in.Id)
+	}
 
 	if err != nil {
 		return &user.UserInfoRsp{

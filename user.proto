@@ -20,6 +20,7 @@ message UserUpdateReq {
   string password = 2;
   string name = 3;
   string avatar = 4;
+  string status = 5;
 }
 
 message UserInfo{

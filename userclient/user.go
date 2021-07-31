@@ -14,16 +14,16 @@ import (
 )
 
 type (
+	UserDetail    = user.UserDetail
 	UserInfoRsp   = user.UserInfoRsp
 	UserListReq   = user.UserListReq
-	UserInfo      = user.UserInfo
-	UserAddRsp    = user.UserAddRsp
-	UserUpdateReq = user.UserUpdateReq
-	UserDetail    = user.UserDetail
-	UserInfoReq   = user.UserInfoReq
-	UserListRsp   = user.UserListRsp
 	Response      = user.Response
 	UserAddReq    = user.UserAddReq
+	UserAddRsp    = user.UserAddRsp
+	UserUpdateReq = user.UserUpdateReq
+	UserInfo      = user.UserInfo
+	UserInfoReq   = user.UserInfoReq
+	UserListRsp   = user.UserListRsp
 
 	User interface {
 		UserAdd(ctx context.Context, in *UserAddReq) (*UserAddRsp, error)

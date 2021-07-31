@@ -25,6 +25,7 @@ func NewUserUpdateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserUp
 
 func (l *UserUpdateLogic) UserUpdate(in *user.UserUpdateReq) (*user.Response, error) {
 	u := model.User{
+		Id: in.Id,
 		Name:     in.Name,
 		Avatar:   in.Avatar,
 		Password: in.Password,

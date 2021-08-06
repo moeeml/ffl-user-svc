@@ -1,19 +1,19 @@
 package svc
 
 import (
+	"gitee.com/fireflylove/user-svc/database"
 	"gitee.com/fireflylove/user-svc/internal/config"
-	"gitee.com/fireflylove/user-svc/model"
-	"github.com/tal-tech/go-zero/core/stores/sqlx"
+	"gorm.io/gorm"
 )
 
 type ServiceContext struct {
 	Config    config.Config
-	UserModel model.UserModel
+	DB *gorm.DB
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:    c,
-		UserModel: model.NewUserModel(sqlx.NewMysql(c.Datasource)),
+		DB : database.NewMysql(&c),
 	}
 }

@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"gitee.com/fireflylove/user-svc/model"
 
 	"gitee.com/fireflylove/user-svc/internal/svc"
 	"gitee.com/fireflylove/user-svc/user"
@@ -25,11 +26,12 @@ func NewUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserList
 
 func (l *UserListLogic) UserList(in *user.UserListReq) (*user.UserListRsp, error) {
 
-	m := l.svcCtx.UserModel
+	var u []model.User
+	m := l.svcCtx.DB
 
-	r, err := m.FindByIds(in.Id)
+	r := m.Find(&u, in.Id)
 
-	if err != nil {
+	if r.Error != nil {
 		return &user.UserListRsp{
 			Code: 0,
 		}, nil
@@ -37,9 +39,9 @@ func (l *UserListLogic) UserList(in *user.UserListReq) (*user.UserListRsp, error
 
 	var list []*user.UserInfo
 
-	for _, item := range *r {
+	for _, item := range u {
 		list = append(list, &user.UserInfo{
-			Id:      item.Id,
+			Id:      uint64(item.ID),
 			Account: item.Account,
 			Name:    item.Name,
 			Avatar:  item.Avatar,

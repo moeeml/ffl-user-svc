@@ -4,6 +4,7 @@ import (
 	"context"
 	"gitee.com/fireflylove/user-svc/model"
 	"gitee.com/fireflylove/user-svc/tool"
+	"gorm.io/gorm"
 
 	"gitee.com/fireflylove/user-svc/internal/svc"
 	"gitee.com/fireflylove/user-svc/user"
@@ -26,17 +27,16 @@ func NewUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserInfo
 }
 
 func (l *UserInfoLogic) UserInfo(in *user.UserInfoReq) (*user.UserInfoRsp, error) {
-
-	var err error
-	var r *model.User
+	var u model.User
+	var r *gorm.DB
 
 	if len(in.Account) > 0 {
-		r, err = l.svcCtx.UserModel.FindOneByAccount(in.Account)
+		r = l.svcCtx.DB.Where("account = ? ", in.Account).First(&u)
 	} else {
-		r, err = l.svcCtx.UserModel.FindOne(in.Id)
+		r = l.svcCtx.DB.First(&u, in.Id)
 	}
 
-	if err != nil {
+	if r.Error != nil {
 		return &user.UserInfoRsp{
 			Code:    1,
 			Message: tool.ErrorCode[1],
@@ -46,12 +46,12 @@ func (l *UserInfoLogic) UserInfo(in *user.UserInfoReq) (*user.UserInfoRsp, error
 	return &user.UserInfoRsp{
 		Code: 0,
 		User: &user.UserDetail{
-			Id:       r.Id,
-			Account:  r.Account,
-			Name:     r.Name,
-			Avatar:   r.Avatar,
-			Status:   r.Status,
-			Password: r.Password,
+			Id:       uint64(u.ID),
+			Account:  u.Account,
+			Name:     u.Name,
+			Avatar:   u.Avatar,
+			Status:   u.Status,
+			Password: u.Password,
 		},
 	}, nil
 }

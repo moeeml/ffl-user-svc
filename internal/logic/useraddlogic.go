@@ -2,15 +2,12 @@ package logic
 
 import (
 	"context"
+	"gitee.com/fireflylove/user-svc/internal/svc"
 	"gitee.com/fireflylove/user-svc/model"
 	"gitee.com/fireflylove/user-svc/tool"
-	"golang.org/x/crypto/bcrypt"
-	"time"
-
-	"gitee.com/fireflylove/user-svc/internal/svc"
 	"gitee.com/fireflylove/user-svc/user"
-
 	"github.com/tal-tech/go-zero/core/logx"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserAddLogic struct {
@@ -29,9 +26,12 @@ func NewUserAddLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UserAddLo
 
 func (l *UserAddLogic) UserAdd(in *user.UserAddReq) (*user.UserAddRsp, error) {
 
-	m := l.svcCtx.UserModel
-	checkAccount, _ := m.FindOneByAccount(in.Account)
-	if checkAccount != nil {
+	var u model.User
+	tx := l.svcCtx.DB.Begin()
+
+	r := tx.Where(&model.User{Account: in.Account}).First(&u)
+	if r.Error != nil {
+		tx.Rollback()
 		return &user.UserAddRsp{
 			Code:    10001,
 			Message: tool.ErrorCode[10001],
@@ -40,23 +40,23 @@ func (l *UserAddLogic) UserAdd(in *user.UserAddReq) (*user.UserAddRsp, error) {
 
 	pwd, _ := bcrypt.GenerateFromPassword([]byte(in.Password), bcrypt.DefaultCost)
 
-	r, err := m.Insert(model.User{
-		Account:    in.Account,
-		Password:   string(pwd),
-		Name:       in.Name,
-		Avatar:     in.Avatar,
-		Status:     tool.UserStatusNormal,
-		CreateTime: time.Now().Unix(),
-	})
+	o := &model.User{
+		Account:  in.Account,
+		Password: string(pwd),
+		Name:     in.Name,
+		Avatar:   in.Avatar,
+	}
 
-	if err != nil {
+	ir := tx.Create(o)
+	if ir.Error != nil {
+		tx.Rollback()
 		return &user.UserAddRsp{Code: 1}, nil
 	}
 
-	uid, _ := r.LastInsertId()
+	tx.Commit()
 
 	return &user.UserAddRsp{
 		Code: 0,
-		Uid:  uid,
+		Uid:  uint64(o.ID),
 	}, nil
 }

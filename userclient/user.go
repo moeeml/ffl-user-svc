@@ -14,15 +14,15 @@ import (
 )
 
 type (
-	UserDetail    = user.UserDetail
-	UserInfoRsp   = user.UserInfoRsp
-	UserListReq   = user.UserListReq
 	Response      = user.Response
 	UserAddReq    = user.UserAddReq
 	UserAddRsp    = user.UserAddRsp
-	UserUpdateReq = user.UserUpdateReq
 	UserInfo      = user.UserInfo
+	UserDetail    = user.UserDetail
+	UserListReq   = user.UserListReq
+	UserUpdateReq = user.UserUpdateReq
 	UserInfoReq   = user.UserInfoReq
+	UserInfoRsp   = user.UserInfoRsp
 	UserListRsp   = user.UserListRsp
 
 	User interface {

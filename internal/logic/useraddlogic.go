@@ -2,12 +2,14 @@ package logic
 
 import (
 	"context"
+	"errors"
 	"gitee.com/fireflylove/user-svc/internal/svc"
 	"gitee.com/fireflylove/user-svc/model"
 	"gitee.com/fireflylove/user-svc/tool"
 	"gitee.com/fireflylove/user-svc/user"
 	"github.com/tal-tech/go-zero/core/logx"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 type UserAddLogic struct {
@@ -30,7 +32,7 @@ func (l *UserAddLogic) UserAdd(in *user.UserAddReq) (*user.UserAddRsp, error) {
 	tx := l.svcCtx.DB.Begin()
 
 	r := tx.Where(&model.User{Account: in.Account}).First(&u)
-	if r.Error != nil {
+	if !errors.Is(r.Error, gorm.ErrRecordNotFound) {
 		tx.Rollback()
 		return &user.UserAddRsp{
 			Code:    10001,

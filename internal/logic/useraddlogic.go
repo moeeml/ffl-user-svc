@@ -3,9 +3,9 @@ package logic
 import (
 	"context"
 	"errors"
+	"gitee.com/fireflylove/user-svc/common"
 	"gitee.com/fireflylove/user-svc/internal/svc"
 	"gitee.com/fireflylove/user-svc/model"
-	"gitee.com/fireflylove/user-svc/tool"
 	"gitee.com/fireflylove/user-svc/user"
 	"github.com/tal-tech/go-zero/core/logx"
 	"golang.org/x/crypto/bcrypt"
@@ -35,8 +35,8 @@ func (l *UserAddLogic) UserAdd(in *user.UserAddReq) (*user.UserAddRsp, error) {
 	if !errors.Is(r.Error, gorm.ErrRecordNotFound) {
 		tx.Rollback()
 		return &user.UserAddRsp{
-			Code:    10001,
-			Message: tool.ErrorCode[10001],
+			Code:    10002,
+			Message: common.ErrorCode[10002],
 		}, nil
 	}
 

@@ -3,7 +3,7 @@ package logic
 import (
 	"context"
 	"gitee.com/fireflylove/user-svc/model"
-	"gitee.com/fireflylove/user-svc/tool"
+	"gitee.com/fireflylove/user-svc/common"
 	"gorm.io/gorm"
 
 	"gitee.com/fireflylove/user-svc/internal/svc"
@@ -39,7 +39,7 @@ func (l *UserInfoLogic) UserInfo(in *user.UserInfoReq) (*user.UserInfoRsp, error
 	if r.Error != nil {
 		return &user.UserInfoRsp{
 			Code:    1,
-			Message: tool.ErrorCode[1],
+			Message: common.ErrorCode[1],
 		}, nil
 	}
 

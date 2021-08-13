@@ -1,3 +1,3 @@
-package tool
+package common
 
 const UserStatusNormal = "normal"

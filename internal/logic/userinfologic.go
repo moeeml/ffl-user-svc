@@ -2,8 +2,9 @@ package logic
 
 import (
 	"context"
-	"gitee.com/fireflylove/user-svc/model"
+	"errors"
 	"gitee.com/fireflylove/user-svc/common"
+	"gitee.com/fireflylove/user-svc/model"
 	"gorm.io/gorm"
 
 	"gitee.com/fireflylove/user-svc/internal/svc"
@@ -36,10 +37,17 @@ func (l *UserInfoLogic) UserInfo(in *user.UserInfoReq) (*user.UserInfoRsp, error
 		r = l.svcCtx.DB.First(&u, in.Id)
 	}
 
+	if errors.Is(r.Error, gorm.ErrRecordNotFound) {
+		return &user.UserInfoRsp{
+			Code:    10003,
+			Message: common.ErrorCode[10003],
+		}, nil
+	}
+
 	if r.Error != nil {
 		return &user.UserInfoRsp{
-			Code:    1,
-			Message: common.ErrorCode[1],
+			Code:    10001,
+			Message: common.ErrorCode[10001],
 		}, nil
 	}
 

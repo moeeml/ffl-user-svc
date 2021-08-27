@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/golang/protobuf v1.5.2
+	github.com/jinzhu/copier v0.3.2 // indirect
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/tal-tech/go-zero v1.1.8
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97

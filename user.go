@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"google.golang.org/grpc/reflection"
 
 	"gitee.com/fireflylove/user-svc/internal/config"
 	"gitee.com/fireflylove/user-svc/internal/server"
@@ -26,6 +27,7 @@ func main() {
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
 		user.RegisterUserServer(grpcServer, srv)
+		reflection.Register(grpcServer)
 	})
 	defer s.Stop()
 

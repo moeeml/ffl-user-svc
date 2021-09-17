@@ -8,7 +8,7 @@ type User struct {
 	gorm.Model
 	Account      string `gorm:"size:30;unique"`
 	Name         string `gorm:"size:30"`
-	Avatar       string
+	Avatar       string `gorm:"default:avatar/0.jpg"`
 	Password     string
 	Gender       string `gorm:"size:10"`
 	Status       string `gorm:"size:20"`

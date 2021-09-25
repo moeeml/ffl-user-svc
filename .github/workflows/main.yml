@@ -1,0 +1,15 @@
+name: ci
+
+on:
+  push:
+    branches: master
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Login to Docker Hub
+        run: |
+          echo ${{ secrets.DOCKERHUB_USERNAME }}
+          echo ${{ secrets.DOCKERHUB_TOKEN }}
